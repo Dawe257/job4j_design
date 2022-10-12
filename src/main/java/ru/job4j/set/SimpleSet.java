@@ -12,7 +12,7 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean add(T value) {
         boolean result = !contains(value);
-        if(result) {
+        if (result) {
             set.add(value);
         }
         return result;
