@@ -15,7 +15,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public void add(E value) {
         if (size == 0) {
-            last = first = new Node<>(value);
+            last = new Node<>(value);
+            first = last;
         } else {
             Node<E> newNode = new Node<>(value);
             last.next = newNode;
