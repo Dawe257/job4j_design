@@ -35,6 +35,20 @@ public class ForwardLinked<T> implements Iterable<T> {
         return value;
     }
 
+    public boolean revert() {
+        Node<T> current = head;
+        if (current == null || current.next == null) {
+            return false;
+        }
+        while (current != null) {
+            Node<T> next = current.next;
+            current.next = head;
+            head = current;
+            current = next;
+        }
+        return true;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
