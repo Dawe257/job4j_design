@@ -13,11 +13,8 @@ public class Dir {
         }
 
         for (File subfile : file.listFiles()) {
-            if (subfile.isDirectory()) {
-                System.out.printf("%s - %s%n", subfile.getName(), getFolderSize(subfile));
-            } else if (subfile.isFile()) {
-                System.out.printf("%s - %s%n", subfile.getName(), subfile.length());
-            }
+            long size = subfile.isDirectory() ? getFolderSize(subfile) : subfile.length();
+            System.out.printf("%s - %s%n", subfile.getName(), size);
         }
     }
 
