@@ -3,6 +3,7 @@ package ru.job4j.io;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -21,10 +22,14 @@ public class Config {
             read.lines().forEach(line -> {
                 if (!line.startsWith("#") && !line.isEmpty()) {
                     if (!line.contains("=")) {
-                        throw new IllegalArgumentException();
+                        throw new IllegalArgumentException("Property does not have a separator: " + line);
                     }
-                    String key = line.split("=")[0];
-                    String value = line.split("=")[1];
+                    String[] lineArr = line.split("=", 2);
+                    if (Arrays.asList(lineArr).contains("")) {
+                        throw new IllegalArgumentException("Invalid property: " + line);
+                    }
+                    String key = lineArr[0];
+                    String value = lineArr[1];
                     values.put(key, value);
                 }
             });

@@ -18,6 +18,34 @@ class ConfigTest {
     void whenPairWithInvalid() {
         String path = "./data/with_invalid_line.properties";
         Config config = new Config(path);
-        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Property does not have a separator:");
+    }
+
+    @Test
+    void whenPairWithInvalidKey() {
+        String path = "./data/with_invalid_key.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid property: key=");
+    }
+
+    @Test
+    void whenPairWithInvalidValue() {
+        String path = "./data/with_invalid_value.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid property: =value");
+    }
+
+    @Test
+    void whenPairWithMultipleSeparator() {
+        String path = "./data/with_multiple_separator.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("key")).isEqualTo("value=value");
     }
 }
