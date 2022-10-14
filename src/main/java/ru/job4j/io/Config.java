@@ -22,14 +22,14 @@ public class Config {
             read.lines().forEach(line -> {
                 if (!line.startsWith("#") && !line.isEmpty()) {
                     if (!line.contains("=")) {
-                        throw new IllegalArgumentException("Property does not have a separator: " + line);
+                        throw new IllegalArgumentException(String.format("Property does not have a separator: %s", line));
                     }
                     String[] lineArr = line.split("=", 2);
-                    if (Arrays.asList(lineArr).contains("")) {
-                        throw new IllegalArgumentException("Invalid property: " + line);
-                    }
                     String key = lineArr[0];
                     String value = lineArr[1];
+                    if ("".equals(key) || "".equals(value)) {
+                        throw new IllegalArgumentException(String.format("Invalid property: %s", line));
+                    }
                     values.put(key, value);
                 }
             });
