@@ -11,11 +11,11 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             in.lines().forEach(line -> {
                 String[] lineArr = line.split(" ");
-                if (lineArr[lineArr.length - 2].equals("404")) {
+                if ("404".equals(lineArr[lineArr.length - 2])) {
                     result.add(line);
                 }
             });
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
@@ -24,14 +24,14 @@ public class LogFilter {
     public static void save(List<String> log, String file) {
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)))) {
             log.forEach(out::println);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        System.out.println(log);
+        log.forEach(System.out::println);
 
         save(log, "404.txt");
     }
