@@ -7,17 +7,11 @@ public class Analysis {
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              BufferedWriter out = new BufferedWriter(new FileWriter(target))) {
             boolean down = false;
-            StringBuilder downTime = new StringBuilder();
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                String status = line.split(" ")[0];
-                String time = line.split(" ")[1];
-                if (!status.equals("200") && !down || status.equals("200") && down) {
-                    downTime.append(time).append(";");
+                String[] arr = line.split(" ");
+                if (("200").equals(arr[0]) == down) {
+                    out.append(arr[1]).append(";").append(down ? System.lineSeparator() : "");
                     down = !down;
-                    if (!down) {
-                        out.write(downTime + System.lineSeparator());
-                        downTime = new StringBuilder();
-                    }
                 }
             }
         } catch (IOException e) {
