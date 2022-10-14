@@ -8,7 +8,7 @@ public class ResultFile {
     public static void main(String[] args) {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             printTable(out);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
