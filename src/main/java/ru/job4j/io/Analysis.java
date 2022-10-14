@@ -11,14 +11,13 @@ public class Analysis {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String status = line.split(" ")[0];
                 String time = line.split(" ")[1];
-                if (!status.equals("200") && !down) {
-                    down = true;
+                if (!status.equals("200") && !down || status.equals("200") && down) {
                     downTime.append(time).append(";");
-                } else if (status.equals("200") && down) {
-                    down = false;
-                    downTime.append(time).append(";");
-                    out.write(downTime + System.lineSeparator());
-                    downTime = new StringBuilder();
+                    down = !down;
+                    if (!down) {
+                        out.write(downTime + System.lineSeparator());
+                        downTime = new StringBuilder();
+                    }
                 }
             }
         } catch (IOException e) {
