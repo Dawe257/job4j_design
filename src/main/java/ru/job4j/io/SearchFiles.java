@@ -28,7 +28,7 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (file.toFile().isFile() && condition.test(file)) {
+        if (condition.test(file)) {
             result.add(file);
         }
         return CONTINUE;
