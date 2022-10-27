@@ -9,25 +9,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    private final Map<FileProperty, Path> visitedFiles = new HashMap<>();
-    private final Map<FileProperty, List<Path>> allFiles = new HashMap<>();
+    private final List<FileProperty> visitedFiles = new ArrayList<>();
+    private final Map<FileProperty, List<Path>> visitedFilesPaths = new HashMap<>();
 
         @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
             FileProperty fileProperty = new FileProperty(file.toFile().length(), file.getFileName().toString());
-            if (!visitedFiles.containsKey(fileProperty)) {
-                List<Path> filePaths = new ArrayList<>();
-                filePaths.add(file);
-                visitedFiles.put(fileProperty, file);
-                allFiles.put(fileProperty, filePaths);
+            if (!visitedFiles.contains(fileProperty)) {
+                visitedFiles.add(fileProperty);
+                visitedFilesPaths.put(fileProperty, new ArrayList<>());
+                visitedFilesPaths.get(fileProperty).add(file);
             } else {
-                allFiles.get(fileProperty).add(file);
+                visitedFilesPaths.get(fileProperty).add(file);
             }
         return super.visitFile(file, attrs);
     }
 
     public Map<FileProperty, List<Path>> getDuplicates() {
-            return allFiles.entrySet()
+            return visitedFilesPaths.entrySet()
                     .stream()
                     .filter(entry -> entry.getValue().size() > 1)
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
