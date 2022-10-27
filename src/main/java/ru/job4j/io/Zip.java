@@ -4,7 +4,6 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -25,11 +24,21 @@ public class Zip {
 
     public static void main(String[] args) throws IOException {
         ArgsName jvm = ArgsName.of(args);
+        validate(jvm);
         Zip zip = new Zip();
         Path start = Paths.get(jvm.get("d"));
+        if (!start.toFile().exists()) {
+            throw new IllegalArgumentException();
+        }
         String exclude = jvm.get("e");
         String target = jvm.get("o");
         List<Path> filesToZip = Search.search(start, p -> !p.toFile().getName().endsWith(exclude));
         zip.packFiles(filesToZip, new File(target));
+    }
+
+    public static void validate(ArgsName args) {
+        if (!args.contains("d") || !args.contains("e") || !args.contains("o")) {
+            throw new IllegalArgumentException();
+        }
     }
 }
