@@ -24,9 +24,11 @@ public class Search {
     private static void validate(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Должно быть передано два параметра");
-        } else if (!Paths.get(args[0]).toFile().isDirectory()) {
+        }
+        if (!Paths.get(args[0]).toFile().isDirectory()) {
             throw new IllegalArgumentException(String.format("%s - не дирректория", args[0]));
-        } else if (!args[1].startsWith(".")) {
+        }
+        if (!args[1].startsWith(".")) {
             throw new IllegalArgumentException("Расширение должно начинаться с точки");
         }
     }
