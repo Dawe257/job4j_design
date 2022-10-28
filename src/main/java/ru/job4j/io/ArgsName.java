@@ -15,10 +15,6 @@ public class ArgsName {
         return values.get(key);
     }
 
-    public boolean contains(String key) {
-        return values.containsKey(key);
-    }
-
     private void parse(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException();

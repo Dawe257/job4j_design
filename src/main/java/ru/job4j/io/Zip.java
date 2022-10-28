@@ -23,21 +23,25 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        if (args.length != 3) {
+            throw new IllegalArgumentException();
+        }
         ArgsName jvm = ArgsName.of(args);
         validate(jvm);
         Zip zip = new Zip();
         Path start = Paths.get(jvm.get("d"));
-        if (!start.toFile().exists()) {
-            throw new IllegalArgumentException();
-        }
         String exclude = jvm.get("e");
         String target = jvm.get("o");
         List<Path> filesToZip = Search.search(start, p -> !p.toFile().getName().endsWith(exclude));
         zip.packFiles(filesToZip, new File(target));
     }
 
-    public static void validate(ArgsName args) {
-        if (!args.contains("d") || !args.contains("e") || !args.contains("o")) {
+    private static void validate(ArgsName args) {
+        File directory = Paths.get(args.get("d")).toFile();
+        String extension = args.get("e");
+        String output = args.get("o");
+        if (!directory.exists() || !directory.isDirectory()
+                || !extension.startsWith(".") || !output.endsWith(".zip")) {
             throw new IllegalArgumentException();
         }
     }
