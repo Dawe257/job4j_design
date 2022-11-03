@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<creditCard>
+    <num>123</num>
+    <expired>false</expired>
+    <amount>100500</amount>
+    <owner>
+        <name>Ivan</name>
+        <surname>Ivanov</surname>
+    </owner>
+    <transactions>
+        <transaction>150</transaction>
+        <transaction>300</transaction>
+        <transaction>5500</transaction>
+    </transactions>
+</creditCard>
