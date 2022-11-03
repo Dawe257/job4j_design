@@ -1,4 +1,4 @@
-package ru.job4j.serialization.java;
+package ru.job4j.io.serialization.java;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
