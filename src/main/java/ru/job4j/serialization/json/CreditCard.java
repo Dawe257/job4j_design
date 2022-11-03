@@ -23,18 +23,18 @@ public class CreditCard {
 
     @Override
     public String toString() {
-        return "CreditCard{" +
-                "num='" + num + '\'' +
-                ", expired=" + expired +
-                ", amount=" + amount +
-                ", owner=" + owner +
-                ", transactions=" + Arrays.toString(transactions) +
-                '}';
+        return "CreditCard{"
+                + "num='" + num + '\''
+                + ", expired=" + expired
+                + ", amount=" + amount
+                + ", owner=" + owner
+                + ", transactions=" + Arrays.toString(transactions)
+                + '}';
     }
 
     public static void main(String[] args) {
         Person person = new Person("Ivan", "Ivanov");
-        CreditCard card = new CreditCard("123", false, 100500L, person, new long[] {150L, 300L, 5500L});
+        CreditCard card = new CreditCard("123", false, 100500L, person, new long[]{150L, 300L, 5500L});
         final Gson gson = new GsonBuilder().create();
         String json = gson.toJson(card);
         System.out.println(json);
