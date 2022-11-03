@@ -1,17 +1,22 @@
-package ru.job4j.serialization.json;
+package ru.job4j.io.serialization.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "creditCard")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CreditCard {
 
     private String num;
     private boolean expired;
     private long amount;
     private Person owner;
+    @XmlElementWrapper(name = "transactions")
+    @XmlElement(name = "transaction")
     private long[] transactions;
+
+    public CreditCard() {
+    }
 
     public CreditCard(String num, boolean expired, long amount, Person owner, long[] transactions) {
         this.num = num;
@@ -30,15 +35,5 @@ public class CreditCard {
                 + ", owner=" + owner
                 + ", transactions=" + Arrays.toString(transactions)
                 + '}';
-    }
-
-    public static void main(String[] args) {
-        Person person = new Person("Ivan", "Ivanov");
-        CreditCard card = new CreditCard("123", false, 100500L, person, new long[]{150L, 300L, 5500L});
-        final Gson gson = new GsonBuilder().create();
-        String json = gson.toJson(card);
-        System.out.println(json);
-        CreditCard cardFromJson = gson.fromJson(json, CreditCard.class);
-        System.out.println(cardFromJson);
     }
 }
