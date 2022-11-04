@@ -36,4 +36,24 @@ public class CreditCard {
                 + ", transactions=" + Arrays.toString(transactions)
                 + '}';
     }
+
+    public String getNum() {
+        return num;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public long[] getTransactions() {
+        return transactions;
+    }
 }
