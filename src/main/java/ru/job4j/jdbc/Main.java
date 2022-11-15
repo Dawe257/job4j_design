@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         String tableName = "test";
-        Properties properties = PropertiesUtil.getProperties();
+        Properties properties = new PropertiesUtil().getProperties();
         try (TableEditor editor = new TableEditor(properties)) {
             editor.createTable(tableName);
             System.out.println(editor.getTableScheme(tableName));

@@ -5,26 +5,23 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public final class PropertiesUtil {
-    private static final Properties PROPERTIES = new Properties();
+    private final Properties properties = new Properties();
 
-    static {
+    public PropertiesUtil() {
         loadProperties();
     }
 
-    private PropertiesUtil() {
+    public Properties getProperties() {
+        return properties;
     }
 
-    public static Properties getProperties() {
-        return PROPERTIES;
+    public String get(String key) {
+        return properties.getProperty(key);
     }
 
-    public static String get(String key) {
-        return PROPERTIES.getProperty(key);
-    }
-
-    private static void loadProperties() {
+    private void loadProperties() {
         try (InputStream stream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
-            PROPERTIES.load(stream);
+            properties.load(stream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
