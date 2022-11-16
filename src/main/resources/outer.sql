@@ -32,6 +32,8 @@ insert into employee(name, departments_id)
 values ('настя', 2);
 insert into employee(name, departments_id)
 values ('денис', 1);
+insert into employee(name)
+values ('ваня');
 
 select *
 from employee
@@ -53,17 +55,17 @@ where employee.id is null;
 
 select *
 from employee
-         left join departments on departments.id = employee.departments_id;
-
+         left join departments on departments.id = employee.departments_id
+where departments.id is not null order by employee.id;
 select *
 from employee
          right join departments on departments.id = employee.departments_id
-where employee.id is not null;
+where employee.id is not null order by employee.id;
 
 create table teens
 (
-    id serial primary key,
-    name varchar(255),
+    id     serial primary key,
+    name   varchar(255),
     gender char
 );
 
@@ -80,4 +82,7 @@ values ('настя', 'Ж');
 insert into teens(name, gender)
 values ('денис', 'М');
 
-select * from teens cross join teens t where teens.gender != t.gender;
+select *
+from teens
+         cross join teens t
+where teens.gender != t.gender;
