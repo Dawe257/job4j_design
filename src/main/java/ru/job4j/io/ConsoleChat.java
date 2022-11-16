@@ -1,7 +1,9 @@
 package ru.job4j.io;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class ConsoleChat {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConsoleChat.class.getName());
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
@@ -23,7 +27,7 @@ public class ConsoleChat {
         r = new Random();
     }
 
-    public void run() {
+    public void run() throws IOException {
         String command = null;
         Scanner scanner = new Scanner(System.in);
         List<String> phrases = readPhrases();
@@ -55,18 +59,20 @@ public class ConsoleChat {
         return result;
     }
 
-    private void saveLog(List<String> log) {
+    private void saveLog(List<String> log) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8))) {
             for (String s : log) {
                 writer.write(s + System.lineSeparator());
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public static void main(String[] args) {
         ConsoleChat cc = new ConsoleChat("log.txt", "/home/dzhenetl/IdeaProjects/job4j_design/src/main/java/ru/job4j/io/answers.txt");
-        cc.run();
+        try {
+            cc.run();
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 }
