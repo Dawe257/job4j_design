@@ -53,14 +53,12 @@ from departments
          left join employee on departments.id = employee.departments_id
 where employee.id is null;
 
-select *
+select employee.id, employee.name, departments.id, departments.name
 from employee
-         left join departments on departments.id = employee.departments_id
-where departments.id is not null order by employee.id;
-select *
-from employee
-         right join departments on departments.id = employee.departments_id
-where employee.id is not null order by employee.id;
+         left join departments on departments.id = employee.departments_id;
+select employee.id, employee.name, departments.id, departments.name
+from departments
+         right join employee on departments.id = employee.departments_id;
 
 create table teens
 (
