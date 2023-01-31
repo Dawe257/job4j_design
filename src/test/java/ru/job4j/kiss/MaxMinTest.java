@@ -34,4 +34,10 @@ class MaxMinTest {
         Integer actual = maxMin.min(list, comparator);
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void withEmptyList() {
+        assertThat(maxMin.min(List.of(), comparator)).isNull();
+        assertThat(maxMin.max(List.of(), comparator)).isNull();
+    }
 }

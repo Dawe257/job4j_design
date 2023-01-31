@@ -17,11 +17,13 @@ public class MaxMin {
     }
 
     private <T> T sort(List<T> value, BiPredicate<T, T> predicate) {
-        T result = value.get(0);
-        for (int i = 1; i < value.size(); i++) {
-            T current = value.get(i);
-            if (predicate.test(current, result)) {
-                result = current;
+        T result = value.isEmpty() ? null : value.get(0);
+        if (result != null) {
+            for (int i = 1; i < value.size(); i++) {
+                T current = value.get(i);
+                if (predicate.test(current, result)) {
+                    result = current;
+                }
             }
         }
         return result;
