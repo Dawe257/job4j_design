@@ -45,4 +45,22 @@ public class Cinema3DTest {
         assertThatThrownBy(() -> cinema.buy(account, 1, -1, date)).
                 isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    public void whenBuyOnInvalidDate() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        assertThatThrownBy(() -> cinema.buy(account, 1, 1, null)).
+                isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    public void whenBuyOnInvalidPlace() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        cinema.buy(account, 1, 1, date);
+        assertThatThrownBy(() -> cinema.buy(new AccountCinema(), 1, 1, Calendar.getInstance()))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
