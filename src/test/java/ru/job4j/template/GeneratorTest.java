@@ -14,7 +14,7 @@ class GeneratorTest {
     private Generator generator;
 
     @Test
-    void produce() {
+    void produceTest() {
         String template = "I am a ${name}, Who are ${subject}?";
         Map<String, String> args = Map.of("name", "Petr Arsentev", "subject", "you");
         String expected = "I am a Petr Arsentev, Who are you?";
